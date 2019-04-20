@@ -1,3 +1,4 @@
+import useAuth from './useAuth';
 import useChannel from './useChannel';
 
-export { useChannel };
+export { useChannel, useAuth };
