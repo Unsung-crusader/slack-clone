@@ -1,19 +1,7 @@
 import * as React from 'react';
-import * as firebase from 'firebase';
 
 import './App.css';
-
-const config = {
-  apiKey: 'AIzaSyApQzsPyaxeWD1JEPxVoKiUgFUKhBSk8jo',
-  authDomain: 'slack-clone-17343.firebaseapp.com',
-  databaseURL: 'https://slack-clone-17343.firebaseio.com',
-  projectId: 'slack-clone-17343',
-  storageBucket: 'slack-clone-17343.appspot.com',
-  messagingSenderId: '211913142656',
-};
-firebase.initializeApp(config);
-
-const db = firebase.firestore();
+import { api } from './firebase';
 
 type doc = {
   id: string;
@@ -24,18 +12,7 @@ export default function App() {
   const [channels, setChannels] = React.useState<doc[] | null>(null);
 
   React.useEffect(() => {
-    return db.collection('channels').onSnapshot(snapshot => {
-      const docsWithId: doc[] = [];
-
-      snapshot.forEach(doc => {
-        const { topic } = doc.data();
-        const docWithId: doc = { type: topic, id: doc.id };
-
-        docsWithId.push(docWithId);
-      });
-
-      setChannels(docsWithId);
-    });
+    return api.fetchChannels(setChannels);
   }, []);
 
   return (
