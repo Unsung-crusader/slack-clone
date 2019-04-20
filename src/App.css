@@ -25,11 +25,11 @@ img {
   float: left;
   width: 40%;
 }
+
 .srch_bar {
   display: inline-block;
   text-align: right;
   width: 60%;
-  padding: ;
 }
 .headind_srch {
   padding: 10px 29px 10px 20px;
@@ -90,7 +90,7 @@ img {
 }
 .chat_list {
   border-bottom: 1px solid #c4c4c4;
-  margin: 0;
+  margin: 0px;
   padding: 18px 16px 10px;
 }
 .inbox_chat {
@@ -117,7 +117,7 @@ img {
   border-radius: 3px;
   color: #646464;
   font-size: 14px;
-  margin: 0;
+  margin: 0px;
   padding: 5px 10px 5px 12px;
   width: 100%;
 }
@@ -140,7 +140,7 @@ img {
   background: #05728f none repeat scroll 0 0;
   border-radius: 3px;
   font-size: 14px;
-  margin: 0;
+  margin: 0px;
   color: #fff;
   padding: 5px 10px 5px 12px;
   width: 100%;
@@ -170,7 +170,7 @@ img {
   background: #05728f none repeat scroll 0 0;
   border: medium none;
   border-radius: 50%;
-  color: #fff;
+  color: #ffff;
   cursor: pointer;
   font-size: 17px;
   height: 33px;

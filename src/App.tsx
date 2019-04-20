@@ -1,8 +1,45 @@
 import * as React from 'react';
+import * as firebase from 'firebase';
 
 import './App.css';
 
+const config = {
+  apiKey: 'AIzaSyApQzsPyaxeWD1JEPxVoKiUgFUKhBSk8jo',
+  authDomain: 'slack-clone-17343.firebaseapp.com',
+  databaseURL: 'https://slack-clone-17343.firebaseio.com',
+  projectId: 'slack-clone-17343',
+  storageBucket: 'slack-clone-17343.appspot.com',
+  messagingSenderId: '211913142656',
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+
+type doc = {
+  id: string;
+  type: string;
+};
+
 export default function App() {
+  const [channels, setChannels] = React.useState<Array<doc> | []>([]);
+
+  React.useEffect(() => {
+    db.collection('channels').onSnapshot(snapshot => {
+      const docsWithId: Array<doc> = [];
+
+      snapshot.forEach(doc => {
+        const { type } = doc.data();
+        const docWithId: doc = { type, id: doc.id };
+
+        docsWithId.push(docWithId);
+      });
+
+      setChannels(docsWithId);
+    });
+  }, []);
+
+  console.log(channels);
+
   return (
     <div className="container">
       <h3 className=" text-center">Messaging</h3>
