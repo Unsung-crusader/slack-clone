@@ -1,5 +1,4 @@
 import * as firebase from 'firebase';
-import fetchChannels from './fetchChannels';
 
 const config = {
   apiKey: 'AIzaSyApQzsPyaxeWD1JEPxVoKiUgFUKhBSk8jo',
@@ -13,6 +12,5 @@ const config = {
 firebase.initializeApp(config);
 
 const db = firebase.firestore();
-const api = { fetchChannels };
 
-export { db, api };
+export { db };

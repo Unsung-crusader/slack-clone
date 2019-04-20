@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import './App.css';
-import { api } from './firebase';
+import { useChannel } from './hooks';
 
 type doc = {
   id: string;
@@ -9,11 +8,7 @@ type doc = {
 };
 
 export default function App() {
-  const [channels, setChannels] = React.useState<doc[] | null>(null);
-
-  React.useEffect(() => {
-    return api.fetchChannels(setChannels);
-  }, []);
+  const channels = useChannel('channels');
 
   return (
     <div className="font-sans antialiased h-screen flex">
