@@ -27,14 +27,18 @@ export default function ChatMessages() {
 
           if (showAvatar) {
             return (
-              <div className="flex items-start mb-4 text-sm">
+              <div className="flex items-start  text-sm" key={message.id}>
                 <Message message={message} />
               </div>
             );
           }
 
           return (
-            <div className="text-sm">
+            <div
+              className="text-sm"
+              style={{ paddingLeft: 50 }}
+              key={message.id}
+            >
               <p className="text-black leading-normal">{message.text}</p>
             </div>
           );
@@ -76,7 +80,7 @@ function Message(props: MessageProps) {
         <span className="text-grey text-xs">
           {format(createdAt.toDate(), 'HH:mm A')}
         </span>
-        <p className="text-black leading-normal" style={{ paddingTop: 2.5 }}>
+        <p className="text-black leading-normal" style={{ paddingTop: 10 }}>
           {text}
         </p>
       </div>
