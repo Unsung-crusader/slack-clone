@@ -18,9 +18,9 @@ export default function OnlineStatus() {
           <span className="text-white opacity-50 text-sm">{user.name}</span>
         </div>
       </div>
-      <span className="text-white" onClick={user.logout}>
+      <div role="button" className="text-white" onClick={user.logout}>
         Logout
-      </span>
+      </div>
       {/* <BellIcon /> */}
     </div>
   );

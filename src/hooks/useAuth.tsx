@@ -16,12 +16,12 @@ export default function useAuth() {
   const [user, setUser] = React.useState<any>({});
 
   React.useEffect(() => {
-    return firebase.auth().onAuthStateChanged((firebaseUser: any) => {
+    return firebase.auth().onAuthStateChanged(firebaseUser => {
       if (firebaseUser) {
         const { photoURL, email, displayName, uid } = firebaseUser;
 
         const user = { photo: photoURL, email, name: displayName, id: uid };
-        setUser({ ...user, logout: auth.signOut });
+        setUser({ ...user, logout: auth.signOut.bind(auth) });
 
         db.collection('users')
           .doc(user.id)
