@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { auth, googleAuthProvider, firebase } from '../firebase';
+import { auth, googleAuthProvider, firebase, db } from '../firebase';
 
 interface User {
   error?: string;
@@ -8,6 +8,7 @@ interface User {
   name?: string;
   uid?: string;
   photo?: string;
+  logout?: () => void;
   signInWithGoogle?: () => void;
 }
 
@@ -15,10 +16,16 @@ export default function useAuth() {
   const [user, setUser] = React.useState<any>({});
 
   React.useEffect(() => {
-    return firebase.auth().onAuthStateChanged((user: any) => {
-      const { photoURL, email, displayName, uid } = user;
-      if (user) {
-        setUser({ photo: photoURL, email, name: displayName, id: uid });
+    return firebase.auth().onAuthStateChanged((firebaseUser: any) => {
+      if (firebaseUser) {
+        const { photoURL, email, displayName, uid } = firebaseUser;
+
+        const user = { photo: photoURL, email, name: displayName, id: uid };
+        setUser({ ...user, logout: auth.signOut });
+
+        db.collection('users')
+          .doc(user.id)
+          .set(user, { merge: true });
       } else {
         setUser({ signInWithGoogle });
       }
@@ -27,8 +34,7 @@ export default function useAuth() {
 
   async function signInWithGoogle() {
     try {
-      const result = await auth.signInWithPopup(googleAuthProvider);
-      console.log(result);
+      await auth.signInWithPopup(googleAuthProvider);
     } catch (err) {
       'The identity provider configuration is disabled.';
       setUser({ signInWithGoogle, error: err.message });
