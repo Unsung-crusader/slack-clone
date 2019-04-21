@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { db } from '../../../firebase';
+
 export default function ChatMessages() {
   return (
     <div className="px-6 py-4 flex-1 overflow-y-scroll">

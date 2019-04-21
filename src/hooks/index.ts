@@ -1,4 +1,4 @@
 import useAuth from './useAuth';
-import useChannel from './useChannel';
+import useCollection from './useCollection';
 
-export { useChannel, useAuth };
+export { useCollection, useAuth };

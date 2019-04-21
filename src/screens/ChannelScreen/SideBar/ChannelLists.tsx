@@ -1,5 +1,5 @@
 import React from 'react';
-import { useChannel } from '../../../hooks';
+import { useCollection } from '../../../hooks';
 
 type doc = {
   id: string;
@@ -7,7 +7,7 @@ type doc = {
 };
 
 export default function ChannelLists() {
-  const channels = useChannel('channels');
+  const channels = useCollection('channels');
 
   if (!channels) return null;
 
