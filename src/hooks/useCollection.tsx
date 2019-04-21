@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { db } from '../firebase';
-import firebase from '@firebase/firestore-types';
+import { QuerySnapshot, CollectionReference } from '@firebase/firestore-types';
 
 export default function useCollection(path: string, orderBy?: string): any[] {
   const [docs, setDocs] = React.useState<any | null>(null);
@@ -10,10 +10,10 @@ export default function useCollection(path: string, orderBy?: string): any[] {
     let collection = db.collection(path);
 
     if (orderBy) {
-      collection = collection.orderBy(orderBy) as firebase.CollectionReference;
+      collection = collection.orderBy(orderBy) as CollectionReference;
     }
 
-    return collection.onSnapshot((snapshot: firebase.QuerySnapshot) => {
+    return collection.onSnapshot((snapshot: QuerySnapshot) => {
       const docsWithId: any[] = [];
 
       snapshot.forEach(doc => {

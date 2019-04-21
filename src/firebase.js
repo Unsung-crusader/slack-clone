@@ -7,8 +7,8 @@ const config = {
   databaseURL: 'https://slack-clone-17343.firebaseio.com',
   projectId: 'slack-clone-17343',
   storageBucket: 'slack-clone-17343.appspot.com',
-  apiKey: process.env.FIREBASE_API_KEY,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
 };
 
 firebase.initializeApp(config);
