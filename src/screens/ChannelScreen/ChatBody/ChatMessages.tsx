@@ -20,7 +20,25 @@ export default function ChatMessages() {
   return (
     <div className="px-6 py-4 flex-1 overflow-y-scroll">
       {messages &&
-        messages.map((message: MessageType) => <Message message={message} />)}
+        messages.map((message: MessageType, idx) => {
+          const prevMessage = messages[idx - 1];
+          const showAvatar =
+            !prevMessage || prevMessage.user.id !== message.user.id;
+
+          if (showAvatar) {
+            return (
+              <div className="flex items-start mb-4 text-sm">
+                <Message message={message} />
+              </div>
+            );
+          }
+
+          return (
+            <div className="text-sm">
+              <p className="text-black leading-normal">{message.text}</p>
+            </div>
+          );
+        })}
     </div>
   );
 }
@@ -42,8 +60,8 @@ function Message(props: MessageProps) {
   const author = useDoc(user.path);
 
   return (
-    <div className="flex items-start mb-4 text-sm" key={id}>
-      {author && (
+    <>
+      {author ? (
         <img
           className="w-10 h-10 rounded mr-3"
           style={{
@@ -52,16 +70,16 @@ function Message(props: MessageProps) {
             borderRadius: 3,
           }}
         />
-      )}
+      ) : null}
       <div className="flex-1 overflow-hidden">
-        <div>
-          <span className="font-bold">{author && author.name} </span>
-          <span className="text-grey text-xs">
-            {format(createdAt.toDate(), 'HH:mm A')}
-          </span>
-        </div>
-        <p className="text-black leading-normal">{text}</p>
+        <span className="font-bold">{author && author.name} </span>
+        <span className="text-grey text-xs">
+          {format(createdAt.toDate(), 'HH:mm A')}
+        </span>
+        <p className="text-black leading-normal" style={{ paddingTop: 2.5 }}>
+          {text}
+        </p>
       </div>
-    </div>
+    </>
   );
 }
