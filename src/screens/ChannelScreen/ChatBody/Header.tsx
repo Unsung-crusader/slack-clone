@@ -1,18 +1,22 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
+import { useCollection, useDoc } from '../../../hooks';
 
 function Header(props: RouteComponentProps<{ channelName: string }>) {
   const { match } = props;
+  const { channelName } = match.params;
+
+  const doc = useDoc(`channels/${channelName}`);
 
   return (
     <div className="border-b flex px-6 py-2 items-center flex-none">
       <div className="flex flex-col">
         <h3 className="text-grey-darkest mb-1 font-extrabold">
-          #{match.params.channelName}
+          #{channelName}
         </h3>
-        <div className="text-grey-dark text-sm truncate">
-          Chit-chattin' about ugly HTML and mixing of concerns.
-        </div>
+        {doc && (
+          <div className="text-grey-dark text-sm truncate">{doc.topic}</div>
+        )}
       </div>
       <div className="ml-auto hidden md:block">
         <div className="relative">
