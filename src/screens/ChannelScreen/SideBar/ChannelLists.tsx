@@ -1,4 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router';
+
 import { useCollection } from '../../../hooks';
 
 type doc = {
@@ -6,7 +9,7 @@ type doc = {
   type: string;
 };
 
-export default function ChannelLists() {
+function ChannelLists(props: RouteComponentProps<{ channelName: string }>) {
   const channels = useCollection('channels');
 
   if (!channels) return null;
@@ -25,11 +28,24 @@ export default function ChannelLists() {
           </svg>
         </div>
       </div>
-      {channels.map((channel: doc) => (
-        <div className="bg-teal-dark py-1 px-4 text-white" key={channel.id}>
-          # {channel.id}
-        </div>
-      ))}
+      {channels.map((channel: doc) => {
+        const isActive = props.match.params.channelName === channel.id;
+
+        return (
+          <div className={`py-1 px-4 text-white`} key={channel.id}>
+            <Link
+              style={{ backgroundColor: `${isActive ? '#1264a3' : ''}` }}
+              to={`/channel/${channel.id}`}
+            >
+              # {channel.id}
+            </Link>
+          </div>
+        );
+      })}
     </div>
   );
 }
+
+// #1264a3
+
+export default withRouter(ChannelLists);
