@@ -3,7 +3,7 @@ import React from 'react';
 import { db } from '../../../firebase';
 import { useAuth } from '../../../hooks';
 
-export default function ChatInputBox() {
+export default function ChatInputBox(props: { channelName: string }) {
   const user = useAuth();
   const chatInputRef: React.RefObject<HTMLInputElement> = React.createRef();
 
@@ -16,7 +16,7 @@ export default function ChatInputBox() {
     if (inputNode) {
       const value: string = inputNode.value;
 
-      db.collection('channels/cricket/messages').add({
+      db.collection(`channels/${props.channelName}/messages`).add({
         text: value.trim(),
         createdAt: new Date(),
         user: db.collection('users').doc(user.id),
@@ -35,7 +35,7 @@ export default function ChatInputBox() {
           name="chat-input-box"
           type="text"
           className="w-full px-4"
-          placeholder="Message #general"
+          placeholder={`Message ${props.channelName}`}
         />
       </div>
     </form>

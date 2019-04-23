@@ -11,9 +11,9 @@ type MessageType = {
   user: CollectionReference;
 };
 
-export default function ChatMessages() {
+export default function ChatMessages(props: { channelName: string }) {
   const messages: MessageType[] | null = useCollection(
-    `channels/cricket/messages`,
+    `channels/${props.channelName}/messages`,
     `createdAt`
   );
 

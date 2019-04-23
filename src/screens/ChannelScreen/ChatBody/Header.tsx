@@ -2,9 +2,8 @@ import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { useCollection, useDoc } from '../../../hooks';
 
-function Header(props: RouteComponentProps<{ channelName: string }>) {
-  const { match } = props;
-  const { channelName } = match.params;
+export default function Header(props: { channelName: string }) {
+  const { channelName } = props;
 
   const doc = useDoc(`channels/${channelName}`);
 
@@ -39,5 +38,3 @@ function Header(props: RouteComponentProps<{ channelName: string }>) {
     </div>
   );
 }
-
-export default withRouter(Header);
