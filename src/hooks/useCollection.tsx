@@ -22,7 +22,7 @@ export default function useCollection(path: string, orderBy?: string): any[] {
 
       setDocs(docsWithId);
     });
-  }, []);
+  }, [path]);
 
   return docs;
 }

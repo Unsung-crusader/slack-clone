@@ -9,9 +9,10 @@ export default function useDoc(path: string) {
   React.useEffect(() => {
     return db.doc(path).onSnapshot((snapshot: DocumentSnapshot) => {
       const doc = snapshot.data() as DocumentData;
+
       setDoc(doc);
     });
-  }, []);
+  }, [path]);
 
   return doc;
 }
