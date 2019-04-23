@@ -65,16 +65,14 @@ function Message(props: MessageProps) {
 
   return (
     <>
-      {author ? (
-        <img
-          className="w-10 h-10 rounded mr-3"
-          style={{
-            backgroundImage: `url(${author.photo})`,
-            backgroundSize: 'cover',
-            borderRadius: 3,
-          }}
-        />
-      ) : null}
+      <img
+        className="w-10 h-10 rounded mr-3"
+        style={{
+          backgroundImage: author ? `url(${author.photo})` : '',
+          backgroundSize: 'cover',
+          borderRadius: 3,
+        }}
+      />
       <div className="flex-1 overflow-hidden">
         <span className="font-bold">{author && author.name} </span>
         <span className="text-grey text-xs">
