@@ -32,9 +32,13 @@ function ChannelLists(props: RouteComponentProps<{ channelName: string }>) {
         const isActive = props.match.params.channelName === channel.id;
 
         return (
-          <div className={`py-1 px-4 text-white`} key={channel.id}>
+          <div
+            style={{ backgroundColor: `${isActive ? '#1164A3' : ''}` }}
+            className={`py-1 px-4`}
+            key={channel.id}
+          >
             <Link
-              style={{ backgroundColor: `${isActive ? '#1264a3' : ''}` }}
+              style={{ color: `${isActive ? '#FFFFFF' : '#C5B7C6'}` }}
               to={`/channel/${channel.id}`}
             >
               # {channel.id}
@@ -45,7 +49,5 @@ function ChannelLists(props: RouteComponentProps<{ channelName: string }>) {
     </div>
   );
 }
-
-// #1264a3
 
 export default withRouter(ChannelLists);

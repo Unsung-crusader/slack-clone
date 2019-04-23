@@ -7,13 +7,20 @@ import ChatBody from './ChatBody';
 
 export default function ChannelScreen() {
   return (
-    <div className="font-sans antialiased h-screen flex">
-      <BrowserRouter>
-        <SideBar />
-        <Route path="/channel/:channelName" component={ChatBody} />
+    <BrowserRouter>
+      <div className="font-sans antialiased h-screen flex">
+        <Route
+          path="/channel/:channelName"
+          render={() => (
+            <>
+              <SideBar />
+              <ChatBody />
+            </>
+          )}
+        />
         <CustomRedirect from="/" to="channel/general" />
-      </BrowserRouter>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
