@@ -2,7 +2,7 @@ import * as React from 'react';
 import { format } from 'date-fns';
 import { Timestamp, CollectionReference } from '@firebase/firestore-types';
 
-import { useCollection, useDoc } from '../../../hooks';
+import { useCollection, useDocWithCache } from '../../../hooks';
 
 type MessageType = {
   id: string;
@@ -12,18 +12,14 @@ type MessageType = {
 };
 
 export default function ChatMessages(props: { channelName: string }) {
-  const messages: MessageType[] | null = useCollection(
-    `channels/${props.channelName}/messages`,
-    `createdAt`
-  );
+  const messages: MessageType[] | null = useCollection(`channels/${props.channelName}/messages`, `createdAt`);
 
   return (
     <div className="px-6 py-4 flex-1 overflow-y-scroll">
       {messages &&
         messages.map((message: MessageType, idx) => {
           const prevMessage = messages[idx - 1];
-          const showAvatar =
-            !prevMessage || prevMessage.user.id !== message.user.id;
+          const showAvatar = !prevMessage || prevMessage.user.id !== message.user.id;
 
           if (showAvatar) {
             return (
@@ -34,11 +30,7 @@ export default function ChatMessages(props: { channelName: string }) {
           }
 
           return (
-            <div
-              className="text-sm"
-              style={{ paddingLeft: 50 }}
-              key={message.id}
-            >
+            <div className="text-sm" style={{ paddingLeft: 50 }} key={message.id}>
               <p className="text-black leading-normal">{message.text}</p>
             </div>
           );
@@ -61,7 +53,7 @@ type Author = {
 function Message(props: MessageProps) {
   const { message } = props;
   const { id, createdAt, text, user } = message;
-  const author = useDoc(user.path);
+  const author = useDocWithCache(user.path);
 
   return (
     <>
@@ -75,9 +67,7 @@ function Message(props: MessageProps) {
       />
       <div className="flex-1 overflow-hidden">
         <span className="font-bold">{author && author.name} </span>
-        <span className="text-grey text-xs">
-          {format(createdAt.toDate(), 'HH:mm A')}
-        </span>
+        <span className="text-grey text-xs">{format(createdAt.toDate(), 'HH:mm A')}</span>
         <p className="text-black leading-normal" style={{ paddingTop: 10 }}>
           {text}
         </p>
