@@ -22,6 +22,8 @@ export default function useAuth(): LoggedInUser & NotLoggedInUser {
 
   async function signInWithGoogle() {
     try {
+      // this fires the popup with the gmail login.
+      // then the onAuthStateChanged() event is triggered.
       await auth.signInWithPopup(googleAuthProvider);
     } catch (err) {
       const notLoggedInUser = {
