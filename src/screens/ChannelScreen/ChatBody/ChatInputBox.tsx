@@ -11,13 +11,11 @@ export default function ChatInputBox(props: { channelName: string }) {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
-    const inputNode = chatInputRef.current;
+    const chatInputElem = chatInputRef.current;
 
-    if (inputNode) {
-      const value: string = inputNode.value;
-
+    if (chatInputElem) {
       db.collection(`channels/${props.channelName}/messages`).add({
-        text: value.trim(),
+        text: chatInputElem.value.trim(),
         createdAt: new Date(),
         user: db.collection('users').doc(user.id),
       });

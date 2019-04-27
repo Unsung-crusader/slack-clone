@@ -29,18 +29,16 @@ function ChannelLists(props: RouteComponentProps<{ channelName: string }>) {
         </div>
       </div>
       {channels.map((channel: doc) => {
-        const isActive = props.match.params.channelName === channel.id;
+        const { id } = channel;
+
+        const isActive = props.match.params.channelName === id;
+
+        const backgroundColor = isActive ? '#1164A3' : '';
+        const color = isActive ? '#FFFFFF' : '#C5B7C6';
 
         return (
-          <div
-            style={{ backgroundColor: `${isActive ? '#1164A3' : ''}` }}
-            className={`py-1 px-4`}
-            key={channel.id}
-          >
-            <Link
-              style={{ color: `${isActive ? '#FFFFFF' : '#C5B7C6'}` }}
-              to={`/channel/${channel.id}`}
-            >
+          <div style={{ backgroundColor }} className="py-1 px-4" key={id}>
+            <Link style={{ color }} to={`/channel/${channel.id}`}>
               # {channel.id}
             </Link>
           </div>

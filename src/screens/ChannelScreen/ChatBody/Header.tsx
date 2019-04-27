@@ -1,6 +1,5 @@
 import React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router';
-import { useCollection, useDoc } from '../../../hooks';
+import { useDoc } from '../../../hooks';
 
 export default function Header(props: { channelName: string }) {
   const { channelName } = props;
