@@ -18,9 +18,7 @@ type NotLoggedInUser = {
 // THE TYPES IS NOT PROPERLY DEFINED. TRYING TO FIGURE THIS OUT
 
 export default function useAuth(): LoggedInUser & NotLoggedInUser {
-  const [user, setUser] = React.useState<(NotLoggedInUser & LoggedInUser) | {}>(
-    {}
-  );
+  const [user, setUser] = React.useState<(NotLoggedInUser & LoggedInUser) | {}>({});
 
   async function signInWithGoogle() {
     try {
